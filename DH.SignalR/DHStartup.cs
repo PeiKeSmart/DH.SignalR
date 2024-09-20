@@ -1,6 +1,4 @@
-﻿using NewLife.Log;
-
-using Pek.Infrastructure;
+﻿using Pek.Infrastructure;
 using Pek.VirtualFileSystem;
 
 namespace DH.SignalR;
@@ -16,10 +14,6 @@ public class DHStartup : IDHStartup
     /// <param name="application">用于配置应用程序的请求管道的生成器</param>
     public void Configure(IApplicationBuilder application)
     {
-        if (SignalRSetting.Current.IsAllowSignalR)
-        {
-            application.UseMiddleware<SignalRMiddleware>();  // 将access_token加到标头
-        }
     }
 
     /// <summary>
@@ -63,7 +57,6 @@ public class DHStartup : IDHStartup
     /// <param name="endpoints">路由生成器</param>
     public void UseDHEndpoints(IEndpointRouteBuilder endpoints)
     {
-        XTrace.WriteLine($"DH.SignalR:UseDHEndpoints进来了吗？");
         if (SignalRSetting.Current.IsAllowSignalR)
         {
             endpoints.MapHub<NotifyHub>("/notify-hub");
@@ -100,7 +93,10 @@ public class DHStartup : IDHStartup
     /// <param name="application">用于配置应用程序的请求管道的生成器</param>
     public void ConfigureMiddleware(IApplicationBuilder application)
     {
-
+        if (SignalRSetting.Current.IsAllowSignalR)
+        {
+            application.UseMiddleware<SignalRMiddleware>();  // 将access_token加到标头
+        }
     }
 
     /// <summary>
