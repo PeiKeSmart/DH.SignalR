@@ -49,9 +49,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
-    <PackageReference Include="Pek.AspNetCore" Version="3.7.2024.920-beta0207" />
-    <PackageReference Include="Pek.Common" Version="3.7.2024.920-beta0206" />
     <PackageReference Include="Pek.VirtualFileSystem" Version="3.7.2024.920-beta0209" />
   </ItemGroup>
 
@@ -63,6 +60,10 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="wwwroot\**\*.*" />
   </ItemGroup>
 
 </Project>
