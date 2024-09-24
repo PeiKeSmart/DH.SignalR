@@ -57,7 +57,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
     /// </summary>
     private readonly ICache _cache;
 
-    public NotifyHub(ICache cache, ICacheProvider cacheProvider)
+    public NotifyHub(ICacheProvider cacheProvider)
     {
         _cache = cacheProvider.Cache;
         //if (RedisSetting.Current.RedisEnabled)
