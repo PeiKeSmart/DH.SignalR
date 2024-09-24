@@ -12,6 +12,7 @@ using NewLife.Log;
 using Pek;
 using Pek.Configs;
 using Pek.Helpers;
+using Pek.Infrastructure;
 
 namespace DH.SignalR;
 
@@ -57,11 +58,11 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
     /// </summary>
     private readonly ICache _cache;
 
-    public NotifyHub(ICache cache, FullRedis fullRedis)
+    public NotifyHub(ICache cache)
     {
         if (RedisSetting.Current.RedisEnabled)
         {
-            _cache = fullRedis;
+            _cache = Singleton<FullRedis>.Instance;
             if (_cache == null)
             {
                 XTrace.WriteLine($"Redis缓存对象为空，请检查是否注入FullRedis");
