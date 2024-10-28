@@ -12,7 +12,6 @@ using NewLife.Log;
 using Pek;
 using Pek.Configs;
 using Pek.Helpers;
-using Pek.Infrastructure;
 
 namespace DH.SignalR;
 
@@ -62,7 +61,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
     {
         if (RedisSetting.Current.RedisEnabled)
         {
-            _cache = Singleton<FullRedis>.Instance;
+            _cache = Pek.Webs.HttpContext.Current.RequestServices.GetRequiredService<FullRedis>();
             if (_cache == null)
             {
                 XTrace.WriteLine($"Redis缓存对象为空，请检查是否注入FullRedis");
