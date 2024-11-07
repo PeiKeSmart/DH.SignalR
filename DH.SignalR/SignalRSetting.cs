@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel;
 
-using NewLife.Xml;
+using NewLife.Configuration;
 
 using Pek.Configs;
 
 namespace DH.SignalR;
 
-/// <summary>工具配置</summary>
-[DisplayName("工具配置")]
-[XmlConfigFile("Config/SignalR.config", 10_000)]
-public class SignalRSetting : XmlConfig<SignalRSetting>
+/// <summary>SignalR配置</summary>
+[DisplayName("SignalR配置")]
+[Config("SignalR")]
+public class SignalRSetting : Config<SignalRSetting>
 {
     /// <summary>是否启用SignalR实时通讯</summary>
     [Description("是否启用SignalR实时通讯")]
