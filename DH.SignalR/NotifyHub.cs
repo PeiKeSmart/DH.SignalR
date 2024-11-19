@@ -57,7 +57,10 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
     /// </summary>
     private readonly ICache _cache;
 
-    public NotifyHub(ICache cache)
+    private readonly IHostApplicationLifetime _appLifetime;
+    private CancellationTokenSource _cancellationTokenSource;
+
+    public NotifyHub(ICache cache, IHostApplicationLifetime appLifetime)
     {
         if (RedisSetting.Current.RedisEnabled)
         {
@@ -71,6 +74,9 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
         {
             _cache = cache;
         }
+
+        _appLifetime = appLifetime;
+        _cancellationTokenSource = new CancellationTokenSource();
     }
 
     public override async Task OnConnectedAsync()
