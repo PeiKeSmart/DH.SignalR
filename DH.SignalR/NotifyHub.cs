@@ -12,6 +12,7 @@ using NewLife.Log;
 using Pek;
 using Pek.Configs;
 using Pek.Helpers;
+using Pek.Infrastructure;
 
 namespace DH.SignalR;
 
@@ -57,14 +58,11 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
     /// </summary>
     private readonly ICache _cache;
 
-    private readonly IHostApplicationLifetime _appLifetime;
-    private CancellationTokenSource _cancellationTokenSource;
-
     public NotifyHub(ICache cache, IHostApplicationLifetime appLifetime)
     {
         if (RedisSetting.Current.RedisEnabled)
         {
-            _cache = Pek.Webs.HttpContext.Current.RequestServices.GetRequiredService<FullRedis>();
+            _cache = NewLife.Model.ObjectContainer.Provider.GetPekService<FullRedis>();
             if (_cache == null)
             {
                 XTrace.WriteLine($"Redis缓存对象为空，请检查是否注入FullRedis");
@@ -74,9 +72,6 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
         {
             _cache = cache;
         }
-
-        _appLifetime = appLifetime;
-        _cancellationTokenSource = new CancellationTokenSource();
     }
 
     public override async Task OnConnectedAsync()
