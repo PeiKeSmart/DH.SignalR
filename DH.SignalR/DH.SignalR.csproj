@@ -43,13 +43,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DH.NRedis" Version="4.0.2024.1123-beta0939" />
+    <PackageReference Include="DH.NRedis" Version="4.0.2024.1206-beta0112" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="9.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Pek.VirtualFileSystem" Version="4.0.2024.1123-beta1040" />
+    <PackageReference Include="Pek.VirtualFileSystem" Version="4.0.2024.1207-beta0720" />
   </ItemGroup>
 
   <ItemGroup>
