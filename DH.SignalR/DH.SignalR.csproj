@@ -49,7 +49,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Pek.VirtualFileSystem" Version="4.0.2024.1230-beta0335" />
+    <PackageReference Include="Pek.VirtualFileSystem" Version="4.0.2024.1230-beta0830" />
   </ItemGroup>
 
   <ItemGroup>
