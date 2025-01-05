@@ -70,7 +70,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
         var iotid = Context.GetHttpContext().Request.Query["iotid"].FirstOrDefault();
 
 #if DEBUG
-        XTrace.WriteLine($"OnConnectedAsync----userId:{userId},dgpage:{dgpage},iotid:{iotid},connectionId:{Context.ConnectionId}");
+        XTrace.WriteLine($"[NotifyHub.OnConnectedAsync]OnConnectedAsync----userId:{userId},dgpage:{dgpage},iotid:{iotid},connectionId:{Context.ConnectionId}");
 #endif
 
         if (userId != 0)
@@ -90,7 +90,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
         var iotid = Context.GetHttpContext().Request.Query["iotid"].FirstOrDefault();
 
 #if DEBUG
-        XTrace.WriteLine($"OnDisconnectedAsync----userId:{userId},dgpage:{dgpage},iotid:{iotid},connectionId:{Context.ConnectionId}");
+        XTrace.WriteLine($"[NotifyHub.OnDisconnectedAsync]OnDisconnectedAsync----userId:{userId},dgpage:{dgpage},iotid:{iotid},connectionId:{Context.ConnectionId}");
 #endif
 
         if (userId != 0)
