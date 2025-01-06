@@ -76,11 +76,11 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
         if (userId != 0)
         {
             _cache.Increment($"{SignalRSetting.Current.SignalRPrefixUser}{RedisSetting.Current.CacheKeyPrefix}{userId}Count", 1);
-            await JoinToGroup(userId, Context.ConnectionId, dgpage, iotid);
-            await DealOnLineNotify(userId, Context.ConnectionId);
+            await JoinToGroup(userId, Context.ConnectionId, dgpage, iotid).ConfigureAwait(false);
+            await DealOnLineNotify(userId, Context.ConnectionId).ConfigureAwait(false);
         }
 
-        await base.OnConnectedAsync();
+        await base.OnConnectedAsync().ConfigureAwait(false);
     }
 
     public override async Task OnDisconnectedAsync(Exception exception)
@@ -96,21 +96,21 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
         if (userId != 0)
         {
             _cache.Decrement($"{SignalRSetting.Current.SignalRPrefixUser}{RedisSetting.Current.CacheKeyPrefix}{userId}Count", 1);
-            await DealOffLineNotify(userId, Context.ConnectionId);
+            await DealOffLineNotify(userId, Context.ConnectionId).ConfigureAwait(false);
         }
 
-        await LeaveFromGroup(Context.ConnectionId, dgpage, iotid);
-        await base.OnDisconnectedAsync(exception);
+        await LeaveFromGroup(Context.ConnectionId, dgpage, iotid).ConfigureAwait(false);
+        await base.OnDisconnectedAsync(exception).ConfigureAwait(false);
     }
 
     public async Task SendAll(Object data)
     {
-        await Clients.All.OnNotify(data);
+        await Clients.All.OnNotify(data).ConfigureAwait(false);
     }
 
     public async Task Send(Object data, String Group)
     {
-        await Clients.Group(Group).OnNotify(data);
+        await Clients.Group(Group).OnNotify(data).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -127,7 +127,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
             UserId = userId,
             ConnectionId = connectionId,
             IsFirst = userConnectCount == 1
-        });
+        }).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -144,7 +144,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
             UserId = userId,
             ConnectionId = connectionId,
             IsLast = userConnectCount == 0
-        });
+        }).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -162,7 +162,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
             {
                 if (!group.IsNullOrWhiteSpace())
                 {
-                    await Groups.AddToGroupAsync(connectionId, group);
+                    await Groups.AddToGroupAsync(connectionId, group).ConfigureAwait(false);
 
                     var dic = _cache.GetDictionary<Int32>($"{SignalRSetting.Current.SignalRPrefixGroup}{RedisSetting.Current.CacheKeyPrefix}{group}");
                     dic.Add(connectionId, userId);
@@ -185,7 +185,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
             {
                 if (!group.IsNullOrWhiteSpace())
                 {
-                    await Groups.RemoveFromGroupAsync(connectionId, group);
+                    await Groups.RemoveFromGroupAsync(connectionId, group).ConfigureAwait(false);
 
                     var dic = _cache.GetDictionary<Int32>($"{SignalRSetting.Current.SignalRPrefixGroup}{RedisSetting.Current.CacheKeyPrefix}{group}");
                     dic.Remove(connectionId);
