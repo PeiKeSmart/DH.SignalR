@@ -57,10 +57,9 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
     /// </summary>
     private readonly ICache _cache;
 
-    public NotifyHub(ICache cache)
+    public NotifyHub(ICacheProvider cache)
     {
-        _cache = Pek.Webs.HttpContext.Current.RequestServices.GetRequiredService<ICacheProvider>().Cache;
-        _cache ??= cache;
+        _cache ??= cache.Cache;
     }
 
     public override async Task OnConnectedAsync()
@@ -119,7 +118,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
     /// <param name="userId">用户Id</param>
     /// <param name="connectionId">连接Id</param>
     /// <returns></returns>
-    private async Task DealOnLineNotify(Int32 userId, string connectionId)
+    private async Task DealOnLineNotify(Int32 userId, String connectionId)
     {
         var userConnectCount = _cache.Get<Int32>($"{SignalRSetting.Current.SignalRPrefixUser}{RedisSetting.Current.CacheKeyPrefix}{userId}Count");
         await Clients.All.OnLine(new OnLineData
@@ -136,7 +135,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
     /// <param name="userId">用户Id</param>
     /// <param name="connectionId">连接Id</param>
     /// <returns></returns>
-    private async Task DealOffLineNotify(Int32 userId, string connectionId)
+    private async Task DealOffLineNotify(Int32 userId, String connectionId)
     {
         var userConnectCount = _cache.Get<Int32>($"{SignalRSetting.Current.SignalRPrefixUser}{RedisSetting.Current.CacheKeyPrefix}{userId}Count");
         await Clients.All.OffLine(new OffLineData
