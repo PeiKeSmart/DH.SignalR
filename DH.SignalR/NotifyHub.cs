@@ -67,6 +67,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
         var userId = DHWeb.Identity.GetValue(ClaimTypes.Sid).ToInt();
         var dgpage = Context.GetHttpContext().Request.Query["dgpage"].FirstOrDefault();
         var iotid = Context.GetHttpContext().Request.Query["iotid"].FirstOrDefault();
+        var pageRnd = Context.GetHttpContext().Request.Query["pageRnd"].FirstOrDefault().ToLong();
 
 #if DEBUG
         XTrace.WriteLine($"[NotifyHub.OnConnectedAsync]OnConnectedAsync----userId:{userId},dgpage:{dgpage},iotid:{iotid},connectionId:{Context.ConnectionId}");
@@ -76,7 +77,7 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
         {
             _cache.Increment($"{SignalRSetting.Current.SignalRPrefixUser}{RedisSetting.Current.CacheKeyPrefix}{userId}Count", 1);
             await JoinToGroup(userId, Context.ConnectionId, dgpage, iotid).ConfigureAwait(false);
-            await DealOnLineNotify(userId, Context.ConnectionId).ConfigureAwait(false);
+            await DealOnLineNotify(userId, Context.ConnectionId, pageRnd).ConfigureAwait(false);
         }
 
         await base.OnConnectedAsync().ConfigureAwait(false);
@@ -117,14 +118,16 @@ public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
     /// </summary>
     /// <param name="userId">用户Id</param>
     /// <param name="connectionId">连接Id</param>
+    /// <param name="pageRnd">页面打开时的惟一标识，如果是刷新或者其他页面则变动，用于区分主体</param>
     /// <returns></returns>
-    private async Task DealOnLineNotify(Int32 userId, String connectionId)
+    private async Task DealOnLineNotify(Int32 userId, String connectionId, Int64 pageRnd)
     {
         var userConnectCount = _cache.Get<Int32>($"{SignalRSetting.Current.SignalRPrefixUser}{RedisSetting.Current.CacheKeyPrefix}{userId}Count");
         await Clients.All.OnLine(new OnLineData
         {
             UserId = userId,
             ConnectionId = connectionId,
+            PageRnd = pageRnd,
             IsFirst = userConnectCount == 1
         }).ConfigureAwait(false);
     }
