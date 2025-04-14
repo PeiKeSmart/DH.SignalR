@@ -37,10 +37,7 @@ public class DHStartup : IPekStartup
                 config.MaximumParallelInvocationsPerClient = 10; // 每个客户端可以在进行排队之前并行调用的最大集线器方法数
             }) // 支持MessagePack
                 .AddMessagePackProtocol()
-                .AddJsonProtocol(options => {
-                    options.PayloadSerializerOptions.WriteIndented = true;
-                    options.PayloadSerializerOptions.Converters.Add(new CustomDateTimeConverter("yyyy-MM-dd HH:mm:ss"));
-                });
+                .AddJsonProtocol();
         }
     }
 
