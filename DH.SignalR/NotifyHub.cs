@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
 
+using DH.Permissions;
 using DH.SignalR.Dtos;
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 using NewLife;
@@ -49,7 +49,7 @@ public interface IClientNotifyHub
     Task OffLine(Object data);
 }
 
-[Authorize("jwt")]
+[JwtAuthorize("Web")]
 public class NotifyHub : Hub<IClientNotifyHub>, IServerNotifyHub
 {
     /// <summary>
