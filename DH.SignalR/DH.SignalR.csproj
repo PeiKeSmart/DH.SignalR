@@ -46,13 +46,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DH.Permissions" Version="4.0.2025.515-beta0117" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="9.0.5" />
+    <PackageReference Include="DH.Permissions" Version="4.0.2025.606-beta1258" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="9.0.6" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Pek.VirtualFileSystem" Version="4.12.2025.515-beta0106" />
+    <PackageReference Include="Pek.VirtualFileSystem" Version="4.12.2025.530-beta0640" />
   </ItemGroup>
 
   <ItemGroup>
