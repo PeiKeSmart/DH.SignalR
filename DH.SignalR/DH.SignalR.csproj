@@ -46,8 +46,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DH.Permissions" Version="4.0.2025.606-beta1258" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="9.0.6" />
+    <PackageReference Include="DH.Permissions" Version="4.0.2025.709-beta0720" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="9.0.7" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
