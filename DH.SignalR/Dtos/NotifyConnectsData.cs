@@ -6,19 +6,19 @@ namespace DH.SignalR.Dtos;
 public class NotifyConnectsData
 {
     /// <summary>
-    /// 用户Id
+    /// 用户标识
     /// </summary>
-    public Int64 UserId { set; get; }
+    public String UserId { set; get; }
 
     /// <summary>
     /// 连接Id
     /// </summary>
-    public string ConnectionId { set; get; }
+    public String ConnectionId { set; get; }
 
     /// <summary>
     /// 是否排除指定连接,当且仅当UserId有值的情况才有效
     /// </summary>
-    public bool ExcludeConnectId { set; get; }
+    public Boolean ExcludeConnectId { set; get; }
 
     /// <summary>
     /// 类型
@@ -28,5 +28,5 @@ public class NotifyConnectsData
     /// <summary>
     /// 对象内容
     /// </summary>
-    public virtual object NotifyObj { set; get; }
+    public virtual Object NotifyObj { set; get; }
 }
