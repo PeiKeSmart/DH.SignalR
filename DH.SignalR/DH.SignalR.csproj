@@ -46,12 +46,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DH.Permissions" Version="4.0.2025.818-beta1302" />
+    <PackageReference Include="DH.Permissions" Version="4.0.2025.913-beta1331" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Pek.VirtualFileSystem" Version="4.14.2025.820-beta0405" />
+    <PackageReference Include="Pek.VirtualFileSystem" Version="4.14.2025.1029-beta1416" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
